@@ -3,8 +3,13 @@
     <div class="form">
       <header>
         <h3>登录用户</h3>
+
         <span class="icon">
-          <svg-icon class="language" iconClass="language"></svg-icon>
+          <el-tooltip content="国际化" placement="bottom" effect="light">
+            <el-button class="cn">
+              <svg-icon class="language" iconClass="language"></svg-icon
+            ></el-button>
+          </el-tooltip>
         </span>
       </header>
       <el-form :model="loginform" :rules="rules">
@@ -49,18 +54,39 @@
 
 <script setup>
 import { getLogin } from '@/api/Login'
-import { reactive, ref } from 'vue'
+import { reactive, ref, unref, h } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Avatar, Lock } from '@element-plus/icons-vue'
+import MD5 from 'md5'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 const loginform = reactive({
-  username: '',
-  password: ''
+  username: 'super-admin',
+  password: '123456'
 })
-const submitForm = async (loginform) => {
+const loding = reactive({
+  data: false
+})
+const submitForm = async () => {
   try {
-    await getLogin(loginform)
+    loding.data = true
+    let data = await getLogin({
+      username: loginform.username,
+      password: MD5(loginform.password)
+    })
+    console.log(data)
+
+    if (data.success) {
+      ElMessage.success('登录成功')
+      router.push('/profile')
+    } else {
+      ElMessage.error(data.message)
+    }
   } catch (error) {
     console.log(error)
   }
+  loding.data = false
 }
 const rules = reactive({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -109,6 +135,7 @@ const onChangePwdType = () => {
   background: transparent;
   background-color: none;
 }
+
 h3 {
   width: 100%;
   text-align: center;
@@ -121,14 +148,14 @@ h3 {
 header {
   position: relative;
 }
-.icon {
+.cn {
   width: 30px;
   height: 30px;
   position: absolute;
   right: 0;
   top: 0;
   font-size: 30px;
-  background-color: #fff;
+  // background-color: #fff;
   border-radius: 5px;
 }
 .el-icon {
