@@ -5,5 +5,14 @@ import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import './styles/index.scss'
+import '@/assets/icons'
+import SvgIcon from '@/components/plugins/svgIcon.vue' // svg组件
+// import '@/api/request.js'
 
-createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
+// register globally
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(ElementPlus)
+    .component('svg-icon', SvgIcon)
+    .mount('#app')
