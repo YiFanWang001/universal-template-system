@@ -1,8 +1,8 @@
 import axios from 'axios'
 import md5 from 'md5'
 const instance = axios.create({
-    baseURL: 'https://imooc-admin.lgdsunday.club/prod-api'
-        // timeout: 5000
+    baseURL: process.env.VUE_APP_BASE_URL,
+    timeout: process.env.VUE_APP_TIMEOUT
 })
 
 // 添加请求拦截器
