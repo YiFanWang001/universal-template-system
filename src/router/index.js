@@ -11,7 +11,13 @@ const routes = [{
         path: '/profile',
         name: 'profile',
         component: () =>
-            import ('../views/profile')
+            import ('../views/profile'),
+        children: [{
+            path: '/*',
+            name: '404',
+            component: () =>
+                import ('../views/404.vue')
+        }]
     }
 ]
 

@@ -7,6 +7,7 @@
       >
         <div class="sidehader">
           <img src="../../assets/logo-2.png" alt="" class="logo" />
+          <span v-if="!oncollapse.flag">imooc-admin</span>
         </div>
         <el-menu
           :collapse="oncollapse.flag"
@@ -19,12 +20,15 @@
         >
           <el-sub-menu index="1">
             <template #title>
-              <el-icon><location /></el-icon>
+              <el-icon><Setting /></el-icon>
               <span>Navigator One</span>
             </template>
             <el-sub-menu index="1-4">
               <template #title><span>item four</span></template>
               <el-menu-item index="1-4-1">item one</el-menu-item>
+              <el-menu-item index="1-4-2">item one</el-menu-item>
+              <el-menu-item index="1-4-3">item one</el-menu-item>
+              <el-menu-item index="1-4-4">item one</el-menu-item>
             </el-sub-menu>
           </el-sub-menu>
         </el-menu>
@@ -73,17 +77,25 @@
                 </nav>
               </div>
             </template>
-            <div v-for="o in 4" :key="o" class="text item tag">
-              {{ 'List item ' + o }}
+            <div>
+              <!--  -->
+              <!--  -->
+              <!--  -->
+              <!--  -->
+              <el-tag closable type="info"> 1 </el-tag>
             </div>
           </el-card>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view />
+        </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 <script setup>
+import { Setting } from '@element-plus/icons-vue'
+
 import { ref, reactive } from 'vue'
 const oncollapse = reactive({
   flag: false
@@ -101,7 +113,12 @@ const oncollapse = reactive({
   background-color: rgb(45, 58, 85);
 }
 .sidehader {
-  text-align: center;
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80px;
+  padding: 0 30px;
 }
 .el-menu {
   background-color: rgb(45, 58, 85);
