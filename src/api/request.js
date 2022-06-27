@@ -3,13 +3,15 @@ import loading from '../utils/loding'
 import md5 from 'md5'
 const instance = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
-    timeout: process.env.VUE_APP_TIMEOUT
+    timeout: 5000
 })
 
 // 添加请求拦截器
 instance.interceptors.request.use(
     (config) => {
         loading.open()
+
+        config.headers.Authorization = '1ace0351-1da5-4a4c-8194-7184426853c6'
             // 在发送请求之前做些什么
         const { icode, time } = getTestICode()
         config.headers.icode = icode
@@ -28,6 +30,7 @@ instance.interceptors.response.use(
         (response) => {
             // 对响应数据做点什么
             loading.close()
+            console.log(response.data)
             return response.data
         },
         (error) => {
@@ -47,8 +50,8 @@ function getTestICode() {
 // 统一了传参处理
 // const request = (options) => {
 //     if (options.method.toLowerCase() === 'get') {
-//       options.params = options.data || {}
+//         options.params = options.data || {}
 //     }
 //     service(options)
-//   }
+// }
 export default instance

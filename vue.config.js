@@ -8,10 +8,10 @@ module.exports = defineConfig({
     transpileDependencies: true,
     lintOnSave: false,
     devServer: {
-        hppts: false,
         open: true,
         port: 8080,
         host: 'localhost',
+        https: false,
         proxy: {
             [process.env.VUE_APP_BASE_URL]: {
                 target: 'https://imooc-admin.lgdsunday.club/prod-api',

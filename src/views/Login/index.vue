@@ -53,14 +53,15 @@
 </template>
 
 <script setup>
-import { getLogin } from '@/api/Login'
+import deepCopy from '../../utils/deepCopy'
 import { reactive, ref, unref, h } from 'vue'
+import { useStore } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { Avatar, Lock } from '@element-plus/icons-vue'
 import MD5 from 'md5'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-
+const store = useStore()
 const loginform = reactive({
   username: 'super-admin',
   password: '123456'
@@ -68,21 +69,13 @@ const loginform = reactive({
 const loding = reactive({
   data: false
 })
+
 const submitForm = async () => {
   try {
     loding.data = true
-    let data = await getLogin({
-      username: loginform.username,
-      password: MD5(loginform.password)
-    })
-    console.log(data)
-
-    if (data.success) {
-      ElMessage.success('登录成功')
-      router.push('/profile')
-    } else {
-      ElMessage.error(data.message)
-    }
+    const fromLogin = deepCopy.deepCopy(loginform)
+    fromLogin.password = MD5(fromLogin.password)
+    store.dispatch('user/login', fromLogin)
   } catch (error) {
     console.log(error)
   }
