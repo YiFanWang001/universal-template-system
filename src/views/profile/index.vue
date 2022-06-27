@@ -21,14 +21,14 @@
           <el-sub-menu index="1">
             <template #title>
               <el-icon><Setting /></el-icon>
-              <span>Navigator One</span>
+              <span>一级</span>
             </template>
             <el-sub-menu index="1-4">
-              <template #title><span>item four</span></template>
-              <el-menu-item index="1-4-1">item one</el-menu-item>
-              <el-menu-item index="1-4-2">item one</el-menu-item>
-              <el-menu-item index="1-4-3">item one</el-menu-item>
-              <el-menu-item index="1-4-4">item one</el-menu-item>
+              <template #title><span>二级</span></template>
+              <el-menu-item index="1-4-1">三级</el-menu-item>
+              <el-menu-item index="1-4-2">三级</el-menu-item>
+              <el-menu-item index="1-4-3">三级</el-menu-item>
+              <el-menu-item index="1-4-4">三级</el-menu-item>
             </el-sub-menu>
           </el-sub-menu>
         </el-menu>

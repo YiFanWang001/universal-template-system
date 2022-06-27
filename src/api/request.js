@@ -1,4 +1,5 @@
 import axios from 'axios'
+import loading from '../utils/loding'
 import md5 from 'md5'
 const instance = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -7,26 +8,29 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(
-    function(config) {
-        // 在发送请求之前做些什么
+    (config) => {
+        loading.open()
+            // 在发送请求之前做些什么
         const { icode, time } = getTestICode()
         config.headers.icode = icode
         config.headers.codeType = time
         return config
     },
-    function(error) {
+    (error) => {
         // 对请求错误做些什么
+        loading.close()
         return Promise.reject(error)
     }
 )
 
 // 添加响应拦截器
 instance.interceptors.response.use(
-        function(response) {
+        (response) => {
             // 对响应数据做点什么
+            loading.close()
             return response.data
         },
-        function(error) {
+        (error) => {
             // 对响应错误做点什么
             return Promise.reject(error)
         }
@@ -40,4 +44,11 @@ function getTestICode() {
         time: now
     }
 }
+// 统一了传参处理
+// const request = (options) => {
+//     if (options.method.toLowerCase() === 'get') {
+//       options.params = options.data || {}
+//     }
+//     service(options)
+//   }
 export default instance

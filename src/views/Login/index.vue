@@ -106,7 +106,7 @@ const onChangePwdType = () => {
 #app {
   width: 100vw;
   height: 100vh;
-  background-color: #2b4b6b;
+  background-color: #2d3a4b;
 }
 .form {
   width: 520px;
