@@ -1,11 +1,8 @@
 <template>
-  <div id="app">
-    <Menu></Menu>
-  </div>
+  <div>masin</div>
 </template>
 
 <script setup>
-import Menu from '@/components/Menu.vue'
 import { reactive, ref } from 'vue'
 </script>
 
