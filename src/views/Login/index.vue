@@ -70,7 +70,7 @@ const loding = reactive({
   data: false
 })
 
-const submitForm = async () => {
+const submitForm = () => {
   try {
     loding.data = true
     const fromLogin = deepCopy.deepCopy(loginform)

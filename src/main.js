@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import './styles/index.scss'
 import '@/assets/icons'
+import './authentication'
 import SvgIcon from '@/components/plugins/svgIcon.vue' // svg组件
 // import '@/api/request.js'
 
