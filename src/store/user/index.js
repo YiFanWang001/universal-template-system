@@ -24,7 +24,6 @@ export default {
                 let token = data.data.token
                 commit('verification', token)
                 if (data.success) {
-                    router.push({ name: 'profile' })
                     ElMessage.success(data.message)
                 } else {
                     ElMessage.error(data.message)

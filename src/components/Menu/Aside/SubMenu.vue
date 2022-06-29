@@ -1,20 +1,32 @@
 <template>
-  <slot v-for="(item, index) in data" :key="index">
-    <el-sub-menu v-if="item.children" :index="item.id">
-      <template #title>
-        <el-icon
-          ><svg-icon class="icon" :iconClass="item.icon"></svg-icon
-        ></el-icon>
-        <span>{{ item.value }}</span>
-      </template>
-      <SubMenu :data="item.children" v-if="item.children"></SubMenu>
-    </el-sub-menu>
-    <el-menu-item :index="item.id" v-else>
-      <el-icon>
-        <svg-icon class="icon" :iconClass="item.icon"></svg-icon>
+  <!-- <div>
+    {{ data }}
+  </div> -->
+
+  <el-sub-menu
+    v-if="data.children && data.children.length > 0"
+    :index="data.path"
+  >
+    <template #title>
+      <el-icon v-if="data.meta.icon">
+        <svg-icon class="icon" :iconClass="data.meta.icon"></svg-icon>
       </el-icon>
-      <span>{{ item.value }}</span></el-menu-item
-    >
+      <span>{{ data.meta.title }}</span>
+    </template>
+    <SubMenu
+      :data="item"
+      v-for="(item, index) in data.children"
+      :key="index"
+    ></SubMenu>
+  </el-sub-menu>
+
+  <slot v-else>
+    <el-menu-item :index="data.path" v-if="data.meta.icon">
+      <el-icon v-if="data.meta.icon">
+        <svg-icon class="icon" :iconClass="data.meta.icon"></svg-icon>
+      </el-icon>
+      <span>{{ data.meta.title }}</span>
+    </el-menu-item>
   </slot>
 </template>
 
@@ -23,10 +35,8 @@ import { reactive, ref } from 'vue'
 import SubMenu from './SubMenu.vue'
 import { Setting } from '@element-plus/icons-vue'
 const props = defineProps({
-  data: Array
+  data: Object
 })
-
-console.log(props.data)
 </script>
 
 <style lang="scss" scoped>

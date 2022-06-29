@@ -7,14 +7,18 @@
       </div>
       <el-menu
         :collapse="Foldflag"
-        active-text-color="#ffd04b"
+        active-text-color="#fff"
         background-color="#2D3A55"
         class="el-menu-vertical-demo"
-        default-active="2"
-        text-color="#fff"
+        text-color="#ccc"
         :collapse-transition="false"
+        router
       >
-        <SubMenu :data="data"></SubMenu>
+        <SubMenu
+          :data="item"
+          v-for="(item, index) in list"
+          :key="index"
+        ></SubMenu>
       </el-menu>
     </el-aside>
     <div></div>
@@ -25,32 +29,39 @@
 import { reactive, ref } from 'vue'
 import SubMenu from './Aside/SubMenu.vue'
 import { Setting } from '@element-plus/icons-vue'
+import router from '@/router'
+const routers = router.options.routes
+
 const props = defineProps({
   Foldflag: Boolean
 })
-const data = reactive([
-  { id: '1', value: '个人主页', icon: 'personnel' },
-  { id: '4', value: '数据可视化', icon: 'international' },
-  {
-    id: '2',
-    value: '用户',
-    icon: 'personnel',
-    children: [
-      { id: '21', value: '员工管理' },
-      { id: '22', value: '角色列表' },
-      { id: '23', value: '权限管理' }
-    ]
-  },
-  {
-    id: '3',
-    icon: 'article',
-    value: '文章',
-    children: [
-      { id: '31', value: '文章排名' },
-      { id: '32', value: '创建文章' }
-    ]
-  }
-])
+
+const list = routers.filter((item) => {
+  return item.meta && item.meta.icon
+})
+// const data = reactive([
+//   { value: '个人主页', icon: 'personnel', path: '/profile' },
+
+//   {
+//     value: '用户',
+//     icon: 'personnel',
+//     path: 'user',
+//     children: [
+//       { value: '员工管理', path: '/userManage' },
+//       { value: '角色列表', path: '/roleList' },
+//       { value: '权限管理', path: '/permissionList' }
+//     ]
+//   },
+//   {
+//     icon: 'article',
+//     value: '文章',
+//     path: 'article',
+//     children: [
+//       { value: '文章排名', path: '/articleRanking' },
+//       { value: '创建文章', path: '/articleCreate' }
+//     ]
+//   }
+// ])
 </script>
 
 <style lang="scss" scoped>
