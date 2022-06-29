@@ -29,10 +29,12 @@ const props = defineProps({
   Foldflag: Boolean
 })
 const data = reactive([
-  { id: '1', value: '个人主页' },
+  { id: '1', value: '个人主页', icon: 'personnel' },
+  { id: '4', value: '数据可视化', icon: 'international' },
   {
     id: '2',
     value: '用户',
+    icon: 'personnel',
     children: [
       { id: '21', value: '员工管理' },
       { id: '22', value: '角色列表' },
@@ -41,6 +43,7 @@ const data = reactive([
   },
   {
     id: '3',
+    icon: 'article',
     value: '文章',
     children: [
       { id: '31', value: '文章排名' },
