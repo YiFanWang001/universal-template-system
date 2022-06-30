@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 /**
  * 私有路由表
  */
@@ -51,9 +50,10 @@ const privateRoutes = [{
     },
     {
         path: '/article',
-        redirect: '/article/ranking',
+
         component: () =>
             import ('@/views/profile/index'),
+        redirect: '/article/ranking',
         meta: {
             title: 'article',
             icon: 'article'
@@ -67,14 +67,14 @@ const privateRoutes = [{
                     icon: 'article-ranking'
                 }
             },
-            {
-                path: '/article/:id',
-                component: () =>
-                    import ('@/views/article-detail/index'),
-                meta: {
-                    title: 'articleDetail'
-                }
-            },
+            // {
+            //     path: '/article/:id',
+            //     component: () =>
+            //         import ('@/views/article-detail/index'),
+            //     meta: {
+            //         title: 'articleDetail'
+            //     }
+            // },
             {
                 path: '/article/create',
                 component: () =>

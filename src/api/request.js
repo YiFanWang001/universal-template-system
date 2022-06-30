@@ -1,29 +1,32 @@
-import axios from 'axios'
-import loading from '../utils/loding'
 import md5 from 'md5'
-import store from '../store/user/index'
+import axios from 'axios'
+import loading from '@/utils/loading'
+import store from '../store'
+import { isCheckTimeout } from '@/api/auth'
+
 const instance = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL,
-    timeout: 7000
+    baseURL: process.env.VUE_APP_BASE_API,
+    timeout: 5000
 })
 
 // 添加请求拦截器
 instance.interceptors.request.use(
     (config) => {
         loading.open()
-            // 在发送请求之前做些什么
         const { icode, time } = getTestICode()
         config.headers.icode = icode
-
-        config.headers.Authorization = 'Bearer ' + store.state.token
         config.headers.codeType = time
-
+            // 在发送请求之前做些什么
+            // const isLogin = window.sessionStorage.getItem('token')
+        const token = store.getters.token
+        config.headers.Authorization = 'Bearer ' + token
         return config
     },
     (error) => {
         // 对请求错误做些什么
+        //关闭loding加载
         loading.close()
-        return Promise.reject(error).catch((e) => {})
+        return Promise.reject(error)
     }
 )
 
@@ -31,6 +34,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (response) => {
         // 对响应数据做点什么
+
         loading.close()
 
         return response
@@ -38,10 +42,12 @@ instance.interceptors.response.use(
     (error) => {
         // 对响应错误做点什么
         loading.close()
-
-        return Promise.reject(error).catch((e) => {})
+        console.log(error)
+        return Promise.reject(error)
     }
 )
+
+//统一了传参处理
 
 //实现code
 function getTestICode() {
@@ -52,11 +58,4 @@ function getTestICode() {
         time: now
     }
 }
-// 统一了传参处理
-// const request = (options) => {
-//     if (options.method.toLowerCase() === 'get') {
-//         options.params = options.data || {}
-//     }
-//     service(options)
-// }
 export default instance

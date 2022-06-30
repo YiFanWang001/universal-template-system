@@ -14,6 +14,7 @@
         :collapse-transition="false"
         router
       >
+        <!--  ${router.path} -->
         <SubMenu
           :data="item"
           v-for="(item, index) in list"
@@ -39,6 +40,7 @@ const props = defineProps({
 const list = routers.filter((item) => {
   return item.meta && item.meta.icon
 })
+
 // const data = reactive([
 //   { value: '个人主页', icon: 'personnel', path: '/profile' },
 

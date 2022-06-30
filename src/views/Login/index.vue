@@ -60,26 +60,22 @@ import { ElMessage } from 'element-plus'
 import { Avatar, Lock } from '@element-plus/icons-vue'
 import MD5 from 'md5'
 import { useRouter } from 'vue-router'
+// import { setTimeStamp } from '../../utils/auth'
 const router = useRouter()
 const store = useStore()
 const loginform = reactive({
   username: 'super-admin',
   password: '123456'
 })
-const loding = reactive({
-  data: false
-})
-
 const submitForm = () => {
   try {
-    loding.data = true
     const fromLogin = deepCopy.deepCopy(loginform)
     fromLogin.password = MD5(fromLogin.password)
     store.dispatch('user/login', fromLogin)
+    // setTimeStamp()
   } catch (error) {
     console.log(error)
   }
-  loding.data = false
 }
 const rules = reactive({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],

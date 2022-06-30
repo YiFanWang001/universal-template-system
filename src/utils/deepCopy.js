@@ -1,24 +1,48 @@
-const checkDateType = (data) => {
-    return typeof data
+/**
+ * @param {*} data
+ * @returns
+ */
+
+const checkDateType=(data)=>{
+  const dataType=Object.prototype.toString.call(data)
+  const dataTypeOptions={
+    '[object Boolean]': 'boolean',
+    '[object Number]': 'number',
+    '[object String]': 'string',
+    '[object Function]': 'function',
+    '[object Array]': 'array',
+    '[object Date]': 'date',
+    '[object RegExp]': 'regExp',
+    '[object Undefined]': 'undefined',
+    '[object Null]': 'null',
+    '[object Object]': 'object'
+  }
+  return dataTypeOptions[dataType]
 }
-const deepCopy = (data) => {
-    let type = checkDateType(data)
-    let params = null
-    if (type == 'array') {
-        params = []
-        for (let i = 0; i < data.length; i++) {
-            params.push(deepCopy(data[i]))
-        }
-    } else if (type == 'object') {
-        params = {}
-        for (let i in data) {
-            params[i] = deepCopy(data[i])
-        }
-    } else {
-        return data
-    }
-    return params
+/**
+ * 深拷贝
+ * @param {*} data 
+ * @returns 
+ */
+const deepCopy=(data)=>{
+  const type=checkDateType(data)
+  let params=null
+  if (type == 'array') {
+    params = [];
+      for (const i = 0; i < data.length; i++) {
+        params.push(deepCopy(data[i]));
+      }
+  } else if (type == 'object') {
+    params = {};
+      for (const i in data) {
+        params[i] = deepCopy(data[i]);
+      }
+  } else {
+      return data;
+  }
+  return params;
 }
-export default {
-    deepCopy
+
+export default{
+  deepCopy
 }

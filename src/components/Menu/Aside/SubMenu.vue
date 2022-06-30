@@ -13,21 +13,15 @@
       </el-icon>
       <span>{{ data.meta.title }}</span>
     </template>
-    <SubMenu
-      :data="item"
-      v-for="(item, index) in data.children"
-      :key="index"
-    ></SubMenu>
+    <SubMenu :data="item" v-for="(item, index) in list" :key="index"></SubMenu>
   </el-sub-menu>
 
-  <slot v-else>
-    <el-menu-item :index="data.path" v-if="data.meta.icon">
-      <el-icon v-if="data.meta.icon">
-        <svg-icon class="icon" :iconClass="data.meta.icon"></svg-icon>
-      </el-icon>
-      <span>{{ data.meta.title }}</span>
-    </el-menu-item>
-  </slot>
+  <el-menu-item :index="data.path" v-else>
+    <el-icon v-if="data.meta.icon">
+      <svg-icon class="icon" :iconClass="data.meta.icon"></svg-icon>
+    </el-icon>
+    <span>{{ data.meta.title }}</span>
+  </el-menu-item>
 </template>
 
 <script setup>
@@ -35,8 +29,20 @@ import { reactive, ref } from 'vue'
 import SubMenu from './SubMenu.vue'
 import { Setting } from '@element-plus/icons-vue'
 const props = defineProps({
-  data: Object
+  data: Object,
+  default: () => {}
 })
+
+const date = props.data.children
+let list = null
+const getlist = () => {
+  if (date) {
+    list = date.filter((item) => {
+      return item.meta && item.meta.icon
+    })
+  }
+}
+getlist()
 </script>
 
 <style lang="scss" scoped>
