@@ -9,7 +9,8 @@ export default {
     namespaced: true,
     state: () => ({
         token: getItem('token') || '',
-        userInfo: ''
+        userInfo: '',
+        jurisdiction: getItem('jurisdiction') || ''
     }),
     getters: {},
     mutations: {
@@ -23,7 +24,11 @@ export default {
         },
         setUserInfo(state, userInfo) {
             state.userInfo = userInfo
-            setItem('userInfo', userInfo)
+                // setItem('userInfo', userInfo)
+            if (userInfo) {
+                state.jurisdiction = userInfo.data.permission
+                setItem('jurisdiction', userInfo.data.permission)
+            }
         }
     },
     actions: {
@@ -44,7 +49,7 @@ export default {
 
         async userlist({ commit }) {
             try {
-                const data = await getprofile()
+                const { data } = await getprofile()
                 commit('setUserInfo', data)
                 return data
             } catch (error) {
@@ -57,6 +62,7 @@ export default {
             commit('setUserInfo', '')
             removeItem('token')
             removeItem('userInfo')
+            removeItem('jurisdiction')
         }
     }
 }
