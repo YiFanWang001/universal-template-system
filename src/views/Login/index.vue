@@ -67,12 +67,13 @@ const loginform = reactive({
   username: 'super-admin',
   password: '123456'
 })
-const submitForm = () => {
+const submitForm = async () => {
   try {
     const fromLogin = deepCopy.deepCopy(loginform)
     fromLogin.password = MD5(fromLogin.password)
-    store.dispatch('user/login', fromLogin)
-    // setTimeStamp()
+    const data = await store.dispatch('user/login', fromLogin)
+    // console.log(data)
+    if (data.data.token) router.push('/')
   } catch (error) {
     console.log(error)
   }

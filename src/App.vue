@@ -4,9 +4,7 @@
 <script>
 export default {
   data() {
-    return {
-      name: 'ssss'
-    }
+    return {}
   }
 }
 </script>

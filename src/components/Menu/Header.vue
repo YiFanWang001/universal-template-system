@@ -16,6 +16,7 @@
               个人中心
             </div>
           </nav>
+          <Header></Header>
         </div>
       </template>
     </el-card>
@@ -24,7 +25,9 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import Header from './Header/Header.vue'
 const emit = defineEmits(['reversal'])
+
 const props = defineProps({
   Foldflag: Boolean
 })
@@ -52,5 +55,9 @@ const reversal = () => {
 .sidebut {
   font-size: 24px;
   display: flex;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

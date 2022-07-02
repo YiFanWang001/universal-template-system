@@ -9,7 +9,6 @@ import '@/assets/icons'
 import SvgIcon from '@/components/plugins/svgIcon.vue'
 
 import './authentication'
-console.log(process.env.VUE_APP_BASE_API)
 
 createApp(App)
     .use(store)

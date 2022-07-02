@@ -32,7 +32,7 @@ import SubMenu from './Aside/SubMenu.vue'
 import { Setting } from '@element-plus/icons-vue'
 import router from '@/router'
 const routers = router.options.routes
-
+console.log(routers)
 const props = defineProps({
   Foldflag: Boolean
 })
